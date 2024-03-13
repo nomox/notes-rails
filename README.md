@@ -1,24 +1,43 @@
-# README
+# Simple backend service for Note-taking application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Steps to get the application up and running.
 
-Things you may want to cover:
+##### Prerequisites
 
-* Ruby version
+Make sure following tools installed on the system.
 
-* System dependencies
+- Ruby 2.7
+- Rails 6.1.7
+- MySQL 8.3
 
-* Configuration
+##### Clone the repository
 
-* Database creation
+```bash
+git clone git@github.com:nomox/notes-rails.git
+```
 
-* Database initialization
+##### Run Bundle
 
-* How to run the test suite
+```bash
+bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+##### Setup the database
 
-* Deployment instructions
+```bash
+rake db:setup
+```
 
-* ...
+##### Start the Rails server
+
+```bash
+bundle exec rails s
+```
+
+## Testing
+
+##### Run RSpec test
+
+```bash
+bundle exec rspec
+```
