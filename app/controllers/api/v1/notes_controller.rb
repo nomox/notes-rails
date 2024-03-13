@@ -1,11 +1,13 @@
 module Api
   module V1
     class NotesController < Api::V1::BaseController
+      include Paginatable
       before_action :set_note, only: %i[show update destroy]
 
       def index
-        @notes = Note.all
-        render json: @notes
+        @notes, @total = paginate(Note.all)
+
+        render json: { notes: @notes, total: @total }
       end
 
       def show
@@ -18,7 +20,7 @@ module Api
         if @note.save
           render json: @note, status: :created
         else
-          render json: { errors: @note.errors }, status: :unprocessable_entity
+          render json: { validation_errors: @note.errors }, status: :unprocessable_entity
         end
       end
 
@@ -26,7 +28,7 @@ module Api
         if @note.update(note_params)
           render json: @note
         else
-          render json: { errors: @note.errors }, status: :unprocessable_entity
+          render json: { validation_errors: @note.errors }, status: :unprocessable_entity
         end
       end
 
