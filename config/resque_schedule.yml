@@ -1,0 +1,4 @@
+sync_notes_job:
+  cron: '*/10 * * * *' # every 10 minutes
+  class: SyncNotesJob
+  queue: sync_notes_queue

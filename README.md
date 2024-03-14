@@ -34,6 +34,16 @@ rake db:setup
 bundle exec rails s
 ```
 
+##### Run background workers
+
+```bash
+QUEUE=* VERBOSE=1 rake resque:work
+```
+
+```bash
+rake resque:scheduler
+```
+
 ## Testing
 
 ##### Run RSpec test

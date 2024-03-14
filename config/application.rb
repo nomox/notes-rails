@@ -11,6 +11,9 @@ module NotesRails
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
     config.autoload_paths << Rails.root.join('queries')
+    config.autoload_paths << Rails.root.join('services')
+
+    config.active_job.queue_adapter = :resque
 
     # Configuration for the application, engines, and railties goes here.
     #
