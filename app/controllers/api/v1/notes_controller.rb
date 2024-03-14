@@ -5,7 +5,8 @@ module Api
       before_action :set_note, only: %i[show update destroy]
 
       def index
-        @notes, @total = paginate(Note.all)
+        @notes = NotesQuery.new(search_params).call
+        @notes, @total = paginate(@notes)
 
         render json: { notes: @notes, total: @total }
       end
@@ -48,6 +49,10 @@ module Api
 
       def note_params
         params.require(:note).permit(:title, :content)
+      end
+
+      def search_params
+        params.permit(:search)
       end
     end
   end
