@@ -1,3 +1,6 @@
+# The ExternalNotesService is organized to fetch data from external API service.
+# ExternalNotesService accepts HTTP client as an injected dependency. This design allows for flexibility and modularity,
+# enabling the service to interact with different HTTP clients or mock clients for testing purpose
 class ExternalNotesService
   attr_reader :http_client
 

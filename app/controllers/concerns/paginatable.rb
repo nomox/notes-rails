@@ -1,3 +1,7 @@
+# Paginatable module provides a paginate(scope) method which accepts a relation object and returns
+# both the paginated relation and the total count
+# Example:
+#   @scope, @tota = paginate(@scope)
 module Paginatable
   extend ActiveSupport::Concern
 

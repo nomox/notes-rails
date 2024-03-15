@@ -72,7 +72,7 @@ The application provides an API service for creating and modifying notes.
 
 * `page` - page number
 * `per_page` - number of items displayed per page
-* `search` - search by title on contet
+* `search` - search by title on content
 
 > Example `/api/v1/notes?page=1&per_page=25&search=First`
 

@@ -13,6 +13,8 @@ class NotesQuery
 
   private
 
+  # The search functionality is implemented with MySQL Full-Text search by indexing relevant columns title and content
+  # in the database table.
   def search(relation, search_query)
     relation.where('MATCH(title, content) AGAINST(?)', search_query)
   end
