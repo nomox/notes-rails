@@ -42,7 +42,7 @@
             -
           <% end %>
         </td>
-        <td><%= log.timestamp %></td>
+        <td><%= log.timestamp.strftime("%B %d, %Y %H:%M:%S") %></td>
       </tr>
     <% end %>
   </tbody>
