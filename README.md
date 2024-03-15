@@ -45,6 +45,13 @@ QUEUE=* VERBOSE=1 rake resque:work
 rake resque:scheduler
 ```
 
+##### Or run Docker contaier
+
+```bash
+docker-compose build
+docker-compose up
+```
+
 ## Testing
 
 ##### Run RSpec test

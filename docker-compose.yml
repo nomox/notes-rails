@@ -1,0 +1,48 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    command: bundle exec rails s -b 0.0.0.0 -p 3000
+    depends_on:
+      - db
+      - mongo
+    links:
+      - db
+      - mongo
+    environment:
+      REDIS_URL: redis://redis:6379
+      DB_HOST: db
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      MONGO_HOST: mongo
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: notes_development
+    ports:
+      - "3306:3306"
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_DATABASE: notes_rails_development
+    ports:
+      - "27017:27017"
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  worker:
+    build: .
+    command: bundle exec rake environment resque:work QUEUE=*
+    environment:
+      - REDIS_URL=redis://redis:6379
+  scheduler:
+    build: .
+    command: bundle exec rake environment resque:scheduler
+    environment:
+      - REDIS_URL=redis://redis:6379
