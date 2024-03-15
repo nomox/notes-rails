@@ -1,0 +1,55 @@
+<h1>Request Logs</h1>
+
+<%= form_tag(request_logs_path, method: :get) do %>
+  <label for="method">Method:</label>
+  <%= select_tag 'method',
+                 options_for_select(@methods.unshift(['-', nil]), selected: params[:method] || '-') %>
+
+  <label for="response_status">Status Code:</label>
+  <%= select_tag 'response_status',
+                 options_for_select(@response_status.unshift(['-', nil]), selected: params[:response_status] || '-') %>
+
+  <label for="error_class">Status Code:</label>
+  <%= select_tag 'error_class',
+                 options_for_select(@error_classes.unshift(['-', nil]), selected: params[:error_class] || '-') %>
+
+  <%= submit_tag 'Filter' %>
+  <%= link_to "Reset", request_logs_path %>
+<% end %>
+
+<hr>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Status</th>
+      <th>Error</th>
+      <th>Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @request_logs.each do |log| %>
+      <tr>
+        <td><b><%= log.method %></b></td>
+        <td><%= log.endpoint %></td>
+        <td><%= log.response_status || '-' %></td>
+        <td>
+          <% if log.error %>
+            <b><%= log.error[:class_name] %></b>
+            <%= log.error[:message] %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+        <td><%= log.timestamp %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<hr>
+
+<ul>
+  <li>Total Hits: <%= @hit_stats[:total_hits] %></li>
+  <li>Error Hits: <%= @hit_stats[:error_hits] %></li>
+</ul>
